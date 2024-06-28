@@ -2,7 +2,7 @@ use crate::felt::FeltTrait;
 extern crate chrono;
 
 /// this highly depends, when you start the generator!
-pub fn time_seed<F: FeltTrait>(user_seed: Option<u64>) -> F {
+pub fn time_multiplier<F: FeltTrait>(user_seed: Option<u64>) -> F {
     let seed = match user_seed {
         Some(s) => s,
         None => {
