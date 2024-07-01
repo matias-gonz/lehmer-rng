@@ -1,4 +1,6 @@
 use crate::felt::FeltTrait;
+use multiplier_generator::time_multiplier;
+use seed_generators::time_seed;
 
 pub struct MegaLehmer<F: FeltTrait> {
     multiplier: F,
@@ -6,12 +8,16 @@ pub struct MegaLehmer<F: FeltTrait> {
 }
 
 impl<F: FeltTrait> MegaLehmer<F> {
-    pub fn new(seed: F, multiplier: F) -> MegaLehmer<F> {
-        MegaLehmer {
-            multiplier,
-            last_gen: seed,
+    pub fn new(seed: Option<F>, multiplier: Option<F>) -> MegaLehmer<F> {
+        let seed = match seed {
+                Some(seed) => seed,
+                None => time_seed(),
+            };
+        let seed = match seed {
+                Some(seed) => seed,
+                None => time_multiplier(),
+            };
         }
-    }
 
     pub fn gen(&mut self) -> F {
         self.last_gen = self.last_gen * self.multiplier;
